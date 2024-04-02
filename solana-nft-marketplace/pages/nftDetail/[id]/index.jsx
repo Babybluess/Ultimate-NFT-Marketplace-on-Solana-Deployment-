@@ -11,18 +11,19 @@ import bidNFT from "@/role/bidNFT/bidNFT";
 import { borrowNFT } from "@/role/LendNFT/borrowNFT";
 import { updateBorrowNFT } from "@/role/updateNFT/updateNFT";
 import { getCurrentNFTBorrow } from "@/script/action/vault/vaultAction";
-import { repayment } from "@/role/LendNFT/repayment"
+import { repayment } from "@/role/LendNFT/repayment";
 
 function index() {
    const router = useRouter();
    const [price, setPrice] = useState("");
    const [timeBorrow, setTimeBorrow] = useState();
    const { publicKey } = useWallet();
-   const dispatch = useDispatch()
+   const [params, setParams] = useState("");
+   const dispatch = useDispatch();
    const nftMarket = useSelector((state) => state.marketReducer.NFTs);
    const vaultNFT = useSelector((state) => state.vaultReducer.NFTs);
    if (router.query.id !== undefined) {
-      const params = router.query.id.split("&");
+      setParams(router.query.id.split("&"));
    }
    const [nfts, setNFT] = useState(
       params[2] == process.env.NEXT_PUBLIC_ADDRESS_MARKETPLACE
@@ -35,7 +36,13 @@ function index() {
    };
 
    const buyNFT = (nftAdress, price, seller) => {
-      buy(Network.Devnet, nftAdress, price, seller, "J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci");
+      buy(
+         Network.Devnet,
+         nftAdress,
+         price,
+         seller,
+         "J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci",
+      );
       setTimeout(() => {
          toast.success("🦄 Buying NFT Successfully!", {
             position: "top-right",
@@ -50,13 +57,19 @@ function index() {
          });
       }, 15000);
    };
-   
-   const stakeValue = nfts[0].price * Number(timeBorrow) + nfts[0].price * Number(timeBorrow) * Number(process.env.NEXT_PUBLIC_STAKE_VALUE)
+
+   const stakeValue =
+      nfts[0].price * Number(timeBorrow) +
+      nfts[0].price * Number(timeBorrow) * Number(process.env.NEXT_PUBLIC_STAKE_VALUE);
 
    const borrow = (nftAddress) => {
-
-
-      bidNFT(Network.Devnet, nftAddress, Number(price), "J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci", process.env.NEXT_PUBLIC_ADDRESS_VAULT);
+      bidNFT(
+         Network.Devnet,
+         nftAddress,
+         Number(price),
+         "J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci",
+         process.env.NEXT_PUBLIC_ADDRESS_VAULT,
+      );
 
       setTimeout(() => {
          toast.success("🦄 Offer lending NFT Successfully!", {
@@ -75,7 +88,13 @@ function index() {
 
    const bid = (nftAddress) => {
       // NEXT_PUBLIC_ADDRESS_VAULT
-      bidNFT(Network.Devnet, nftAddress, Number(price), "J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci", process.env.NEXT_PUBLIC_ADDRESS_MARKETPLACE);
+      bidNFT(
+         Network.Devnet,
+         nftAddress,
+         Number(price),
+         "J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci",
+         process.env.NEXT_PUBLIC_ADDRESS_MARKETPLACE,
+      );
       setTimeout(() => {
          toast.success("🦄 Bidding NFT Successfully!", {
             position: "top-right",
@@ -134,7 +153,9 @@ function index() {
                      </div>
                   </div>
                   <div className=" flex py-2 h-[70%] gap-5 mx-5">
-                     <div className={`flex gap-3 ${params[2] == process.env.NEXT_PUBLIC_ADDRESS_VAULT ? "flex-col" : "" }`} >
+                     <div
+                        className={`flex gap-3 ${params[2] == process.env.NEXT_PUBLIC_ADDRESS_VAULT ? "flex-col" : ""}`}
+                     >
                         <input
                            required
                            onChange={(e) => setPrice(e.target.value)}
