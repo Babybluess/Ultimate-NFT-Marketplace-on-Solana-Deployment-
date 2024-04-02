@@ -162,7 +162,7 @@ function NFTModel(props) {
 
    useEffect(() => {
       if (publicKey !== null) {
-         setAddress(publicKey.toBase58());
+         setAddress("J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci");
       }
    }, [addressWallet]);
 
