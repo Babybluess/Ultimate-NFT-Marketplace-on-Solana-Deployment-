@@ -19,9 +19,16 @@ function index() {
    const [timeBorrow, setTimeBorrow] = useState();
    const { publicKey } = useWallet();
    const [params, setParams] = useState("");
+   const [addressWallet, setAddressWallet] = useState(
+      "J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci",
+   );
+   const [addressNFT, setAddressNFT] = useState(
+      "Ki89sv89Xuzj9K7ynxenKjrUeekDewy7HYW37d8ad7a8",
+   );
    const dispatch = useDispatch();
    const nftMarket = useSelector((state) => state.marketReducer.NFTs);
    const vaultNFT = useSelector((state) => state.vaultReducer.NFTs);
+
    if (router.query.id !== undefined) {
       setParams(router.query.id.split("&"));
    }
@@ -59,8 +66,8 @@ function index() {
    };
 
    const stakeValue =
-      nfts[0].price * Number(timeBorrow) +
-      nfts[0].price * Number(timeBorrow) * Number(process.env.NEXT_PUBLIC_STAKE_VALUE);
+      price * Number(timeBorrow) +
+      price * Number(timeBorrow) * Number(process.env.NEXT_PUBLIC_STAKE_VALUE);
 
    const borrow = (nftAddress) => {
       bidNFT(
@@ -121,7 +128,7 @@ function index() {
          <div className=" w-[95%] h-[90%] flex gap-10 justify-center items-center">
             <div className=" w-[35%] h-[80%] flex shadow-xl shadow-violet-500 rounded-xl">
                <img
-                  src={nfts[0].img}
+                  src="https://i.pinimg.com/236x/12/5e/83/125e833289c00aaa9510170950c7b9b8.jpg"
                   className=" w-full h-full object-cover rounded-xl"
                   alt=""
                />
@@ -132,7 +139,7 @@ function index() {
                   <span className=" text-gray-400">
                      Owned by{" "}
                      <a className=" no-underline text-blue-500" href="">
-                        {nfts[0].owner}
+                        {addressWallet}
                      </a>
                   </span>
                </div>
@@ -140,21 +147,21 @@ function index() {
                   <div className=" border-b-[1px] gap-10 border-gray-400 h-[50%] flex items-center mx-5">
                      <div>
                         <span className=" text-black">
-                           BALANCE: {Number(params[1]).toFixed(2)} SOL
+                           BALANCE: {Number(price).toFixed(2)} SOL
                         </span>
                         <div className=" text-black gap-2">
                            <span>Current price:</span>
-                           <span className=" text-black px-2">{nfts[0].price} SOL</span>
+                           <span className=" text-black px-2">2.2 SOL</span>
                         </div>
                      </div>
                      <div className=" flex-col flex ">
-                        <p>NFT Type: {nfts[0].type}</p>
-                        <p>Supply: {nfts[0].supply}</p>
+                        <p>NFT Type: Art</p>
+                        <p>Supply: 2000</p>
                      </div>
                   </div>
                   <div className=" flex py-2 h-[70%] gap-5 mx-5">
                      <div
-                        className={`flex gap-3 ${params[2] == process.env.NEXT_PUBLIC_ADDRESS_VAULT ? "flex-col" : ""}`}
+                        className={`flex gap-3 ${params == process.env.NEXT_PUBLIC_ADDRESS_VAULT ? "flex-col" : ""}`}
                      >
                         <input
                            required
@@ -177,7 +184,7 @@ function index() {
                      </div>
                      <div className=" w-[20%] h-full flex flex-col gap-2">
                         <button
-                           onClick={() => bid(nfts[0].addressID)}
+                           onClick={() => bid(addressNFT)}
                            className="text-white justify-center gap-2 bg-[#FF9119] hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-3 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 me-2 mb-2"
                         >
                            Bidding{" "}
@@ -200,9 +207,7 @@ function index() {
                         {params[2] == process.env.NEXT_PUBLIC_ADDRESS_MARKETPLACE ? (
                            <button
                               className="text-white justify-center gap-2 bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-3 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 me-2 mb-2"
-                              onClick={() =>
-                                 buyNFT(nfts[0].addressID, nfts[0].price, nfts[0].seller)
-                              }
+                              onClick={() => buyNFT(addressNFT, price, addressWallet)}
                            >
                               Buy Now{" "}
                               <svg
@@ -221,9 +226,7 @@ function index() {
                         ) : (
                            <button
                               className="text-white justify-center gap-2 bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-3 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 me-2 mb-2"
-                              onClick={() =>
-                                 borrow(nfts[0].addressID, nfts[0].price, nfts[0].lender)
-                              }
+                              onClick={() => borrow(addressNFT, price, addressWallet)}
                            >
                               Offer lending{" "}
                               <svg
