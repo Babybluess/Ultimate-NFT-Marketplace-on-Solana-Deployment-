@@ -35,7 +35,7 @@ function index() {
    };
 
    const buyNFT = (nftAdress, price, seller) => {
-      buy(Network.Devnet, nftAdress, price, seller, publicKey.toBase58());
+      buy(Network.Devnet, nftAdress, price, seller, "J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci");
       setTimeout(() => {
          toast.success("🦄 Buying NFT Successfully!", {
             position: "top-right",
@@ -56,7 +56,7 @@ function index() {
    const borrow = (nftAddress) => {
 
 
-      bidNFT(Network.Devnet, nftAddress, Number(price), publicKey.toBase58(), process.env.NEXT_PUBLIC_ADDRESS_VAULT);
+      bidNFT(Network.Devnet, nftAddress, Number(price), "J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci", process.env.NEXT_PUBLIC_ADDRESS_VAULT);
 
       setTimeout(() => {
          toast.success("🦄 Offer lending NFT Successfully!", {
@@ -75,7 +75,7 @@ function index() {
 
    const bid = (nftAddress) => {
       // NEXT_PUBLIC_ADDRESS_VAULT
-      bidNFT(Network.Devnet, nftAddress, Number(price), publicKey.toBase58(), process.env.NEXT_PUBLIC_ADDRESS_MARKETPLACE);
+      bidNFT(Network.Devnet, nftAddress, Number(price), "J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci", process.env.NEXT_PUBLIC_ADDRESS_MARKETPLACE);
       setTimeout(() => {
          toast.success("🦄 Bidding NFT Successfully!", {
             position: "top-right",

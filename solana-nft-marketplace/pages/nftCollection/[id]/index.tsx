@@ -10,9 +10,12 @@ function index() {
    const router = useRouter();
    const [nftList, setNFTS] = useState<any[]>();
    const [loading, isLoading] = useState(true);
-   const NFTs = useSelector((state:any) => state.signerReducer.NFTs)
-   const { publicKey } = useWallet()
-   
+   const [addressWallet, setAddressWallet] = useState(
+      "J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci",
+   );
+   const NFTs = useSelector((state: any) => state.signerReducer.NFTs);
+   const { publicKey } = useWallet();
+
    const backClick = () => {
       router.back();
    };
@@ -31,7 +34,7 @@ function index() {
                <UpdatedIMG name={"Avatar"} />
                <div className=" h-[50px] flex justify-center items-center rounded-xl bg-gradient-to-br from-[#E55D87] to-[#5FC3E4]">
                   <span className=" text-black font-bold text-3xl max-sm:text-sm px-[10px] flex items-end">
-                     {`${publicKey?.toBase58().substring(0, 6)}...${publicKey?.toBase58().substring(36)}`}
+                     {`${addressWallet.substring(0, 6)}...${addressWallet.substring(36)}`}
                   </span>
                </div>
             </div>
@@ -40,17 +43,15 @@ function index() {
             <div className=" text-black font-semibold w-[100%] justify-between flex items-center">
                <span className="text-3xl">My Collection</span>
             </div>
-               {loading == true && NFTs == undefined ? (
-                  <CircularProgress color="success" />
-               ) : (
-                  <div className="w-full flex flex-wrap px-20 gap-10 justify-center items-center">
-                     {
-                        NFTs.map((e:any, index: number) => (
-                           <NFTModel key={index} nfts={e} isSell={true}/>
-                        ))
-                     }
-                  </div>
-               )}
+            {loading == true && NFTs == undefined ? (
+               <CircularProgress color="success" />
+            ) : (
+               <div className="w-full flex flex-wrap px-20 gap-10 justify-center items-center">
+                  {NFTs.map((e: any, index: number) => (
+                     <NFTModel key={index} nfts={e} isSell={true} />
+                  ))}
+               </div>
+            )}
          </div>
       </div>
    );
