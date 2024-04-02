@@ -7,6 +7,7 @@ function UpdatedIMG({ name }) {
    const [url, setUrl] = useState("");
    const [isUpload, setUpload] = useState(false);
    const [img, setImg] = useState("");
+   const [addressWallet, setAddressWallet] = useState("J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci")
    
    const updateURL = async(e) => {
       setUrl(URL.createObjectURL(e.target.files[0]))
@@ -16,7 +17,7 @@ function UpdatedIMG({ name }) {
    };
 
    const {publicKey} = useWallet();
-   const walletAddress = publicKey ?? publicKey.toBase58();
+   const walletAddress = publicKey ?? addressWallet;
    async function fetchData(walletAddress) {
       try {
         const config = {

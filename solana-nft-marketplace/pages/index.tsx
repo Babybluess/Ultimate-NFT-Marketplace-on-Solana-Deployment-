@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import HomePage from "../modules/HomePage";
 import axios from "axios";
 import { useWallet } from "@solana/wallet-adapter-react";
 
 const Home: NextPage = () => {
-
+   const [addressWallet, setAddressWallet] = useState("J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci")
    const {publicKey} = useWallet();
 	const createUser = async (walletAddress: any) => {
 		try {
@@ -30,7 +30,7 @@ const Home: NextPage = () => {
    console.log(publicKey);
    if (publicKey) {
 
-      createUser(publicKey.toBase58())
+      createUser(addressWallet)
    }
 
    },[publicKey])

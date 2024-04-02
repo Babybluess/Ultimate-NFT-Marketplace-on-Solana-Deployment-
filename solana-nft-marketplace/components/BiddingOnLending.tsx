@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 function BiddingOnLending() {
    const [nftBid, setNFTBid] = useState<any[]>([]);
    const axios = require("axios");
+   const [addressWallet, setAddressWallet] = useState("J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci")
    const { publicKey } = useWallet();
    const dispatch = useDispatch()
 
@@ -173,7 +174,7 @@ function BiddingOnLending() {
                         {process.env.NEXT_PUBLIC_EXPIRATION}
                      </td>
                      <td className="whitespace-nowrap px-6 py-4 text-center">
-                        {item.seller == publicKey?.toBase58() ? (
+                        {item.seller == addressWallet ? (
                            <button
                               onClick={() => acceptBidding(item.bid_state, item.seller, item.price, item.addressID, item.buyer)}
                               className="px-2 py-1 bg-green-600 rounded-xl"
@@ -185,7 +186,7 @@ function BiddingOnLending() {
                         )}
                      </td>
                      <td className="whitespace-nowrap px-6 py-4 text-center">
-                        {item.buyer == publicKey?.toBase58() ? (
+                        {item.buyer == addressWallet ? (
                            <button
                               onClick={() => cancelBidding(item.bid_state, item.buyer)}
                               className="px-2 py-1 bg-rose-600 rounded-xl"

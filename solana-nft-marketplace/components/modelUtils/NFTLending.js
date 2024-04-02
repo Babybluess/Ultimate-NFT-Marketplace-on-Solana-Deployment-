@@ -15,9 +15,9 @@ import Link from "next/link";
 function NFTLending(props) {
    const nftVaultList = useSelector((state) => state.vaultReducer.listAddressID);
    const { publicKey } = useWallet();
-   const [addressWallet, setAddress] = useState();
    const [open, setOpen] = useState(false);
    const [timeBorrow, setTimeBorrow] = useState();
+   const [addressWallet, setAddressWallet] = useState("J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci")
    const [balance, setBalance] = useState();
    const shyft = new ShyftSdk({ apiKey: process.env.NEXT_PUBLIC_API_KEY, network: Network.Devnet });
 
@@ -58,7 +58,7 @@ function NFTLending(props) {
 
    useEffect(() => {
       if (publicKey !== null) {
-         setAddress(publicKey.toBase58());
+         setAddress(addressWallet);
       }
    }, [addressWallet]);
 

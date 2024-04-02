@@ -20,10 +20,10 @@ function NFTModel(props) {
    const [price, setPrice] = useState(0);
    const [balance, setBalance] = useState();
    const [isRecover, setRecover] = useState(false);
+   const [addressWallet, setAddressWallet] = useState("J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci")
    const dispatch = useDispatch();
    const router = useRouter();
    const { publicKey } = useWallet();
-   const [addressWallet, setAddress] = useState();
    const nftMarketList = useSelector((state) => state.marketReducer.listAddressID);
    const currentNFTBorrow = useSelector((state) => state.vaultReducer.currentNFTBorrow);
    const stakeSOL = Number(
@@ -118,7 +118,7 @@ function NFTModel(props) {
       const updatedNFTBorrow = {
          addressID: nftAdress,
          lenderNFT: lender,
-         borrowerNFT: publicKey.toBase58(),
+         borrowerNFT: addressWallet,
          priceNFT: price,
          timeBorrowNFT: timeBorrow,
          expirationNFT: expiration,

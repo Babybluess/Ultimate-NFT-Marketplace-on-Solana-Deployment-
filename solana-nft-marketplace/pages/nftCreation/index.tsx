@@ -19,7 +19,10 @@ function index() {
    const [supplyNFT, setSupplyNFT] = useState("");
    const [descriptionNFT, setDecripstionNFT] = useState("");
    const [isVideo, setIsVideo] = useState(false);
-   const { publicKey } = useWallet()
+   const [addressWallet, setAddressWallet] = useState(
+      "J5HxijcGXuzj9K7ynxenKjrUeekDewy7HYW3q3jx5mci",
+   );
+   const { publicKey } = useWallet();
 
    const typeOptions = [
       { value: "Art", label: "Art" },
@@ -226,7 +229,7 @@ function index() {
                               src={"./images/bannerIMG/PAP.png"}
                            />
                         </div>
-                        <p>{`${publicKey?.toBase58().substring(0, 6)}...${publicKey?.toBase58().substring(36)}`}</p>
+                        <p>{`${addressWallet.substring(0, 6)}...${addressWallet.substring(36)}`}</p>
                      </div>
                      <p className=" text-gray-500 font-medium">Price for Sell:</p>
                      <div className=" w-full flex justify-between items-center">

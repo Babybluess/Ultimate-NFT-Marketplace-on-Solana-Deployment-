@@ -47,7 +47,7 @@ function Banner() {
    ];
 
    const fetchNFTs = () => {
-      let nftUrl = `https://api.shyft.to/sol/v1/nft/read_all?network=${Network.Devnet}&address=${publicKey?.toBase58()}`;
+      let nftUrl = `https://api.shyft.to/sol/v1/nft/read_all?network=${Network.Devnet}&address=${id}`;
       axios({
          url: nftUrl,
          method: "GET",
