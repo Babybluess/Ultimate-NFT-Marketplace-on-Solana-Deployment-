@@ -308,16 +308,33 @@ function NFTModel(props) {
                                  Cancel Selling
                               </button>
                            ) : (
-                              <Link
-                                 href={{
-                                    pathname: `/nftDetail/${nft.addressID}&${balance}&${process.env.NEXT_PUBLIC_ADDRESS_MARKETPLACE}`,
-                                 }}
-                                 className={` ${
-                                    nft.imgNFT == undefined ? " w-[90%] " : "w-[60%]"
-                                 } p-1 bg-[#593F9F] text-center rounded-tr-xl rounded-bl-xl`}
-                              >
-                                 See Detail &#8594;
-                              </Link>
+                              <>
+                                 {process.env.NEXT_PUBLIC_ADDRESS_MARKETPLACE !==
+                                    undefined && nft.addressID !== undefined ? (
+                                    <Link
+                                       href={{
+                                          pathname: `/nftDetail/${nft.addressID}&${balance}&${process.env.NEXT_PUBLIC_ADDRESS_MARKETPLACE}`,
+                                       }}
+                                       className={` ${
+                                          nft.imgNFT == undefined
+                                             ? " w-[90%] "
+                                             : "w-[60%]"
+                                       } p-1 bg-[#593F9F] text-center rounded-tr-xl rounded-bl-xl`}
+                                    >
+                                       See Detail &#8594;
+                                    </Link>
+                                 ) : (
+                                    <button
+                                       className={` ${
+                                          nft.imgNFT == undefined
+                                             ? " w-[90%] "
+                                             : "w-[60%]"
+                                       } p-1 bg-[#593F9F] text-center rounded-tr-xl rounded-bl-xl`}
+                                    >
+                                       See Detail &#8594;
+                                    </button>
+                                 )}
+                              </>
                            )}
                         </>
                      )}

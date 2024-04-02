@@ -11,6 +11,7 @@ import { Network } from "@shyft-to/js";
 function Banner() {
    // const address = useSelector((state:any) => state.signerReducer.address)
    const { publicKey } = useWallet()
+   const [id, setID] = useState('')
    const [nfts, setNFTs] = useState<any[]>([])
    const dispatch = useDispatch()
 
@@ -86,6 +87,10 @@ function Banner() {
        useEffect(() => {
          fetchNFTs()
        },[publicKey])
+
+       if (publicKey?.toBase58() !== undefined) {
+            setID(publicKey?.toBase58())
+       }
       
    return (
       <div id="Home" className=" w-full z-30 justify-center items-center flex flex-col text-white border-x-4 border-[#F7F7F9] p-[5%] gap-10 ">
@@ -97,7 +102,7 @@ function Banner() {
             the blockchain for ownership and scarcity
          </p>
          <div className=" flex gap-5 text-xl justify-center items-center ">
-            <Link href={`/nftCollection/${publicKey?.toBase58()}`} className=" bg-[#2CAFBF] px-5 py-3 rounded-full">
+            <Link href={`/nftCollection/${id}`} className=" bg-[#2CAFBF] px-5 py-3 rounded-full">
                NFT Collection
             </Link>
             <Link href={"/nftCreation"} className=" cursor-pointer">Create NFT</Link>
